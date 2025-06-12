@@ -125,6 +125,69 @@ class JogoSelva:
          print(f"\nVocê bebeu água e recuperou {energia_ganha} de energia.")
         else:
          print("\nVocê não tem água na mochila para beber.")
+    
+    def jogar(self):
+        print("""
+    ==============================================
+    |          JOGO DE SOBREVIVÊNCIA NA SELVA    |
+    ==============================================
+              
+    Você acorda perdido em uma floresta densa.
+    Use inteligência e coragem para sobreviver e ser resgatado.
+
+    >>> Você deve buscar comida, água e itens essenciais.
+    >>> Monte abrigos e enfrente perigos para ganhar pontos.
+    >>> Acumule 50 pontos para ser resgatado.
+    Boa sorte!
+    """)
+        while self.vida > 0 and not self.encontrou_saida:
+            self.mostrar_status()
+            print("\nO que você quer fazer?")
+            print("1. Buscar comida")
+            print("2. Buscar água")
+            print("3. Buscar corda")
+            print("4. Montar abrigo")
+            print("5. Enfrentar perigo")
+            print("6. Verificar se foi resgatado")
+            print("7. Comer comida")
+            print("8. Beber água")
+            escolha = input("Escolha uma ação (1-8): ")
+
+            if escolha == '1':
+                self.buscar_comida()
+            elif escolha == '2':
+                self.buscar_agua()
+            elif escolha == '3':
+                self.buscar_corda()
+            elif escolha == '4':
+                self.montar_abrigos()
+            elif escolha == '5':
+                self.enfrentar_perigo()
+            elif escolha == '6':
+                self.verificar_resgate()
+            elif escolha == '7':
+                self.comer()
+            elif escolha == '8':
+                self.beber()
+            else:
+                print("Escolha inválida. Tente novamente.")
+
+            
+            if self.energia <= 0:
+                print("\nVocê está exausto e não consegue continuar. Fim de jogo.")
+                self.vida = 0
+
+            if self.vida > VIDA_MAXIMA:
+                self.vida = VIDA_MAXIMA
+            if self.energia > ENERGIA_MAXIMA:
+                self.energia = ENERGIA_MAXIMA
+            
+            time.sleep(1)  
+
+        if self.vida <= 0:
+            print("\nVocê não sobreviveu na floresta. Tente novamente.")
+        else:
+            self.salvar_status()
 
 
     
